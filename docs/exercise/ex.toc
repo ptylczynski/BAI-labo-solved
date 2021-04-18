@@ -1,3 +1,5 @@
 \contentsline {section}{\numberline {1}Wstęp}{2}%
-\contentsline {section}{\numberline {2}Inicjalizacja kodu}{2}%
-\contentsline {subsection}{\numberline {2.1}Initializr}{2}%
+\contentsline {section}{\numberline {2}Założenia projektu}{2}%
+\contentsline {section}{\numberline {3}Inicjalizacja projektu}{2}%
+\contentsline {section}{\numberline {4}Modelowanie Bazy Danych}{3}%
+\contentsline {subsection}{\numberline {4.1}Obiekty POJO}{4}%
