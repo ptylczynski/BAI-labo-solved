@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.23)  18 APR 2021 19:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.23)  18 APR 2021 21:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -51,41 +51,34 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 10.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 10.
- [1
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 10.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-No file ex.toc.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (/home/piotr/Documents/car-manager/docs/exercise/ex.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 3.
+)
 \tf@toc=\write3
 \openout3 = `ex.toc'.
 
-[1]
-
-/home/piotr/Documents/car-manager/docs/exercise/ex.tex:16: LaTeX Error: Command \k unavailable in encoding OT1.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.16     \section{Wstęp}
-                         
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[2] (/home/piotr/Documents/car-manager/docs/exercise/ex.aux) ) 
+ [1] [2] (/home/piotr/Documents/car-manager/docs/exercise/ex.aux) ) 
 Here is how much of TeX's memory you used:
- 602 strings out of 483183
- 8328 string characters out of 5966292
- 231602 words of memory out of 5000000
- 15685 multiletter control sequences out of 15000+600000
- 536147 words of font info for 37 fonts, out of 8000000 for 9000
+ 630 strings out of 483183
+ 9128 string characters out of 5966292
+ 232602 words of memory out of 5000000
+ 15703 multiletter control sequences out of 15000+600000
+ 540777 words of font info for 41 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 25i,7n,19p,193b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on /home/piotr/Documents/car-manager/docs/exercise/ex.pdf (3 pages, 46962 bytes).
+ 25i,6n,20p,374b,262s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
+Output written on /home/piotr/Documents/car-manager/docs/exercise/ex.pdf (3 pages, 48219 bytes).
 PDF statistics:
- 34 PDF objects out of 1000 (max. 8388607)
- 23 compressed objects within 1 object stream
+ 196 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
