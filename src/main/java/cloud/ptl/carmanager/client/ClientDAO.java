@@ -1,11 +1,13 @@
 package cloud.ptl.carmanager.client;
 
+import cloud.ptl.carmanager.car.CarDAO;
 import lombok.Data;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -20,4 +22,10 @@ public class ClientDAO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate
     private LocalDateTime lastSeen;
+
+    @OneToMany(
+            mappedBy = "rentedBy",
+            fetch = FetchType.LAZY
+    )
+    Collection<CarDAO> rentedCars;
 }
