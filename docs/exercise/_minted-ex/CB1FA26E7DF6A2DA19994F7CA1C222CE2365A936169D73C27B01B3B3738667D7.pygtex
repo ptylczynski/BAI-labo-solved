@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@PatchMapping}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}/rent/\PYGZob{}car\PYGZus{}id\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kd}{public} \PYG{n}{ClientDTO} \PYG{n+nf}{retnOne}\PYG{p}{(}
+        \PYG{n+nd}{@PathVariable}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}car\PYGZus{}id\PYGZdq{}}\PYG{p}{)} \PYG{n}{Long} \PYG{n}{carId}\PYG{p}{,}
+        \PYG{n+nd}{@RequestParam}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}client\PYGZus{}id\PYGZdq{}}\PYG{p}{)} \PYG{n}{Long} \PYG{n}{clientId}
+\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{ClientDTO}\PYG{p}{.}\PYG{n+na}{toDTO}\PYG{p}{(}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientService}\PYG{p}{.}\PYG{n+na}{rent}\PYG{p}{(}\PYG{n}{carId}\PYG{p}{,} \PYG{n}{clientId}\PYG{p}{)}
+    \PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n+nd}{@PatchMapping}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}/return/\PYGZob{}car\PYGZus{}id\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kd}{public} \PYG{n}{ClientDTO} \PYG{n+nf}{returnOne}\PYG{p}{(}
+        \PYG{n+nd}{@PathVariable}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}car\PYGZus{}id\PYGZdq{}}\PYG{p}{)} \PYG{n}{Long} \PYG{n}{carId}\PYG{p}{,}
+        \PYG{n+nd}{@RequestParam}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}client\PYGZus{}id\PYGZdq{}}\PYG{p}{)} \PYG{n}{Long} \PYG{n}{clientId}\PYG{p}{,}
+        \PYG{n+nd}{@RequestParam}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}distance\PYGZdq{}}\PYG{p}{)} \PYG{n}{Double} \PYG{n}{distance}
+\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+    \PYG{k}{return} \PYG{n}{ClientDTO}\PYG{p}{.}\PYG{n+na}{toDTO}\PYG{p}{(}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientService}\PYG{p}{.}\PYG{n+na}{returnn}\PYG{p}{(}
+                    \PYG{n}{carId}\PYG{p}{,} \PYG{n}{clientId}\PYG{p}{,} \PYG{n}{distance}\PYG{p}{)}
+    \PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

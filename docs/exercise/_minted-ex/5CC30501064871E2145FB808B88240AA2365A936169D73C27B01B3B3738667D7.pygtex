@@ -1,0 +1,26 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@RestController}
+\PYG{n+nd}{@RequestMapping}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}/client\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{ClientController} \PYG{p}{\PYGZob{}}
+    \PYG{n+nd}{@Autowired}
+    \PYG{k+kd}{private} \PYG{n}{ClientService} \PYG{n}{clientService}\PYG{p}{;}
+
+    \PYG{n+nd}{@GetMapping}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}/\PYGZob{}id\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+    \PYG{k+kd}{public} \PYG{n}{ClientDTO} \PYG{n+nf}{getOne}\PYG{p}{(}
+            \PYG{n+nd}{@PathVariable}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}id\PYGZdq{}}\PYG{p}{)} \PYG{n}{Long} \PYG{n}{id}
+    \PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{ClientDTO}\PYG{p}{.}\PYG{n+na}{toDTO}\PYG{p}{(}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientService}\PYG{p}{.}\PYG{n+na}{getOne}\PYG{p}{(}\PYG{n}{id}\PYG{p}{)}
+        \PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n+nd}{@PostMapping}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}/\PYGZdq{}}\PYG{p}{)}
+    \PYG{k+kd}{public} \PYG{n}{ClientDTO} \PYG{n+nf}{postOne}\PYG{p}{(}
+            \PYG{n+nd}{@RequestBody} \PYG{n}{ClientDAO} \PYG{n}{clientDAO}
+    \PYG{p}{)\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{ClientDTO}\PYG{p}{.}\PYG{n+na}{toDTO}\PYG{p}{(}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientService}\PYG{p}{.}\PYG{n+na}{createIfNotExist}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{)}
+        \PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

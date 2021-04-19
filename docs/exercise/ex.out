@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Wstep}{}% 1
+\BOOKMARK [1][-]{section.2}{Za\233ozenia projektu}{}% 2
+\BOOKMARK [1][-]{section.3}{Inicjalizacja projektu}{}% 3
+\BOOKMARK [1][-]{section.4}{Modelowanie Bazy Danych}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Konfigurowanie Bazy Danych}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Obiekty DAO}{section.4}% 6
+\BOOKMARK [3][-]{subsubsection.4.2.1}{CarDAO}{subsection.4.2}% 7
+\BOOKMARK [3][-]{subsubsection.4.2.2}{ClientDAO}{subsection.4.2}% 8
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Po\233aczenie CarDAO i ClientDAO}{subsection.4.2}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Dostep do danych}{section.4}% 10
+\BOOKMARK [1][-]{section.5}{Logika aplikacji}{}% 11
+\BOOKMARK [2][-]{subsection.5.1}{CarService}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.2}{ClientService}{section.5}% 13
+\BOOKMARK [1][-]{section.6}{Warstwa Prezentacji}{}% 14
+\BOOKMARK [2][-]{subsection.6.1}{Obiekty Transferowe}{section.6}% 15
+\BOOKMARK [3][-]{subsubsection.6.1.1}{CarDTO}{subsection.6.1}% 16
+\BOOKMARK [3][-]{subsubsection.6.1.2}{ClientDTO}{subsection.6.1}% 17
+\BOOKMARK [2][-]{subsection.6.2}{Kontrolery}{section.6}% 18
+\BOOKMARK [3][-]{subsubsection.6.2.1}{CarController}{subsection.6.2}% 19
+\BOOKMARK [3][-]{subsubsection.6.2.2}{ClientController}{subsection.6.2}% 20
+\BOOKMARK [1][-]{section.7}{Podsumowanie}{}% 21
+\BOOKMARK [1][-]{section.8}{tl;dr}{}% 22

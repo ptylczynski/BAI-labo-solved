@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@RestController}
+\PYG{n+nd}{@RequestMapping}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}/car\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{CarController} \PYG{p}{\PYGZob{}}
+    \PYG{n+nd}{@Autowired}
+    \PYG{k+kd}{private} \PYG{n}{CarService} \PYG{n}{carService}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
