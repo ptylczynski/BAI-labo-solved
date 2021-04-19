@@ -52,7 +52,7 @@ public class ClientService {
         return (Collection<ClientDAO>) this.clientRepository.findAll();
     }
 
-    public ClientDAO rent(CarDAO carDAO, ClientDAO clientDAO){
+    public ClientDAO rent(CarDAO carDAO, ClientDAO clientDAO) throws Exception {
         this.carService.rent(carDAO, clientDAO);
         return clientDAO;
     }
@@ -64,8 +64,8 @@ public class ClientService {
         );
     }
 
-    public ClientDAO returnn(CarDAO carDAO, ClientDAO clientDAO, Double distanceCovered){
-        this.carService.returnn(carDAO, distanceCovered);
+    public ClientDAO returnn(CarDAO carDAO, ClientDAO clientDAO, Double distanceCovered) throws Exception {
+        this.carService.returnn(carDAO, clientDAO, distanceCovered);
         return clientDAO;
     }
 

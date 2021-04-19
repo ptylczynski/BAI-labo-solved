@@ -41,12 +41,21 @@ public class CarService {
         return this.carRepository.findAllByRentedBy(clientDAO);
     }
 
-    public CarDAO rent(CarDAO carDAO, ClientDAO clientDAO){
-        carDAO.setRentedBy(clientDAO);
-        return this.carRepository.save(carDAO);
+    public CarDAO rent(CarDAO carDAO, ClientDAO clientDAO) throws Exception {
+        if (carDAO.getRentedBy() == null){
+            carDAO.setRentedBy(clientDAO);
+            return this.carRepository.save(carDAO);
+        }
+        if (carDAO.getRentedBy().equals(clientDAO))
+            throw new Exception("Already Rented By You");
+        if (carDAO.getRentedBy() != null)
+            throw new Exception("Already Rented");
+        return null;
     }
 
-    public CarDAO returnn(CarDAO carDAO, Double distanceCovered){
+    public CarDAO returnn(CarDAO carDAO, ClientDAO clientDAO, Double distanceCovered) throws Exception {
+        if (!carDAO.getRentedBy().equals(clientDAO))
+            throw new Exception("Car is not rented by you");
         carDAO.setRentedBy(null);
         carDAO.setTotalDistance(
                 carDAO.getTotalDistance() + distanceCovered
