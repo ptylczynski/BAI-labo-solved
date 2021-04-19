@@ -74,7 +74,8 @@ spring.h2.console.path=/h2
             Pierwszych sześć linijek to konfiguracja samego sterownika dla bazy danych. Tak żeby Hibernate wiedział gdzie jest baza, którą ma obsłużyć. Ciekawą rzeczą są dwie ostatnie linijki. Uruchamiają one wbudowany w H2 serwer, który w czasie działania aplikacji pozowli nam na podglądanie bazy danch. Internetową konsolę znajdziemy pod adresem \emph{http://localhost:8080/h2}
         
         \subsection{Obiekty DAO}
-            \textbf{DAO} - Data Access Object \\
+            \textbf{DAO} - Data Access Object 
+            
             To właśnie dzięki nim będziemy mogli modelować naszą bazę. Zwyczajowo, każda klasa opisująca obiekt DAO, kończy się właśnie tym akronimem. 
             \subsubsection{CarDAO}
                 Stwórzmy prosty obiekt opisujący samochód.
@@ -405,6 +406,124 @@ public class ClientDTO {
                     \item[GET /car/{id}] pozwoli na odczytywanie informacji o samochodzie 
                     \item[POST /car/]  pozwoli na dodawanie nowych samochodów
                 \end{description}
+                To czym jest $GET$ i $POST$ oraz jakie są między nimi różnice omówiliśmy na prezentacji do tego laboratorium. Jednak jeżeli chciałbyś się dowiedzieć więcej zapraszam do linków na końcu skryptu.
                 
+                Zacznijmy od zdefiniowania odpowiedniej klasy dla naszego kontrolera
+                \begin{minted}{java}
+@RestController
+@RequestMapping("/car")
+public class CarController { 
+    @Autowired
+    private CarService carService;
+}
+                \end{minted}
+                \begin{description}
+                    \item[@RestController] to tak naprawdę złożenie dwóch adnotacji. @Controller - która mówi o tym, że pisana właśnie klasa ma specjalne przeznaczenie, będzie kontrolerem. Drudą adnotacją jest @ResponseBody, wskazuje ona na to, że zwracana przez funkcje obiekty mają być serializowane do postacji JSON
+                    \item[@RequestMapping] wskazuje na to jakie rządania mają być obsługiwane przez ten kontroler. Tutaj wszystko co zaczyna się od \emph{/car}
+                \end{description}
+                Teraz dodamy nasz pierwszy endpoint - \emph{GET /car/{id}}
+                \begin{minted}{java}
+@GetMapping("/{id}")
+public CarDTO getOne(
+        @PathVariable("id") Long id
+) throws Exception {
+    return CarDTO.toDTO(
+            this.carService.getOne(id)
+    );
+}                   
+                \end{minted}
+                \begin{description}
+                    \item[@GetMapping] wskazuje, że ten endpoint będzie odbierał tylko rządania typu $GET$, kończące się na $/\{id\}$
+                    \item[@PathVariable] wskazuje, że do parametru id należy wpisać wartość, która znajdzie w miejscu \emph{\{id\}}  
+                \end{description}
+                Jak widzimy jest to prosty endpoint, który wywoła funkcję $CarService::getOne$ i przekonwertuje jej wynik do obiektu DTO
+                
+                Teraz dodamy endpoint odpowiedzialny za dodawanie nowgo auta
+                \begin{minted}{java}
+@PostMapping("/")
+public CarDTO postOne(
+        @RequestBody CarDAO carDAO
+){
+    return CarDTO.toDTO(
+            this.carService.createIfNotExits(carDAO)
+    );
+}
+                \end{minted}
+                Nowością tutaj jest wykorzystanie adnotacji $@RequestBody$. Pozwala ona na automatyczną deserializację obiektu zawartego w rządaniu do obiektu Javy. Reszta jest identyczna.
+            \subsubsection{ClientController}
+                W przypadku kontolera klienta chcielibyśmy udostępnić następujące endpointy:
+                \begin{description}
+                    \item[GET /client/\{id\}] zwróci informacje o kliencie i wyporzyczonych przez niego samochodach
+                    \item[POST /client/] doda nowego klienta
+                    \item[PATCH /client/rent/\{id\}] pozwoli wyporzyczyć samochód
+                    \item[PATCH /client/return/\{id\}] pozwoli oddać wypożyczony samochód
+                \end{description}
+                Podstawowe funkcjonalności tego endpointu są dokładnie takie same, więc pominiemy ich dokładniejszy opis.
+                \begin{minted}{java}
+@RestController
+@RequestMapping("/client")
+public class ClientController {
+    @Autowired
+    private ClientService clientService;
+
+    @GetMapping("/{id}")
+    public ClientDTO getOne(
+            @PathVariable("id") Long id
+    ) throws Exception {
+        return ClientDTO.toDTO(
+                this.clientService.getOne(id)
+        );
+    }
+
+    @PostMapping("/")
+    public ClientDTO postOne(
+            @RequestBody ClientDAO clientDAO
+    ){
+        return ClientDTO.toDTO(
+                this.clientService.createIfNotExist(clientDAO)
+        );
+    }
+}
+                \end{minted}
+                O tym czym jest rządanie typu $PATCH$ także mówiliśmy na prezentacji, więce tak jak poprzednio, zainteresowanych odsyłam do linków na końcu skryptu.
+                
+                Zakończymy teraz proces tworzenia kontrolera dodając jesgo ostatnie dwa endpointy typu $PATCH$
+                \begin{minted}{java}
+@PatchMapping("/rent/{car_id}")
+public ClientDTO retnOne(
+        @PathVariable("car_id") Long carId,
+        @RequestParam("client_id") Long clientId
+) throws Exception {
+    return ClientDTO.toDTO(
+            this.clientService.rent(carId, clientId)
+    );
+}
+
+@PatchMapping("/return/{car_id}")
+public ClientDTO returnOne(
+        @PathVariable("car_id") Long carId,
+        @RequestParam("client_id") Long clientId,
+        @RequestParam("distance") Double distance
+) throws Exception {
+    return ClientDTO.toDTO(
+            this.clientService.returnn(
+                    carId, clientId, distance)
+    );
+}
+                \end{minted}
+                \begin{description}
+                    \item[@PatchMapping] jest to adnotacja podobna do $@GetMapping$ 
+                    \item[@RequestParam] w przeciwieństwie do adnotacji $@PathVariable$, która szuka danych tylko w linku i $@RequestBody$, która próbuje deserializować całą zawartość rządania do jednego obiektu $@RequestParam$ szuka w rządaniu jednego konkretnego klucza i wyciąga z niego wartość. Nie ważne gdzie taki klucz się znajduje. 
+                \end{description}
+    \section{Podsumowanie}
+        Właśnie stworzyłeś działający i zgodny z większością standardów serwer. Dodatkowo zrobiłeś to w sposób w jaki robi się to podczas zawodowego tworzenia takich rozwiązań. Pomimo tego, że wiele elementów zostało tutaj uproszczonych, po to żeby nie przedłużać i tak już długiego skryptu, to stworzyłeś pełnoprawny serwer backendowy. Oczywiście brakuje w nim wielu elementów, np. poprawnej obsługi błędów, dodania standardu HATEOAS, odpowiednich zabezpieczeń, systemu autoryzacji, itd. jednak główny celem tego laboratorium było pokazanie podstawowych funkcjonalności frameworku Spring.
         
+        W czasie tego laboratorium nauczyłeś się:
+        \begin{itemize}
+            \item Jak współcześnie modelujemy i zarządzamy bazą danych z poziomu kodu
+            \item Czym jest DAO i jakie wiążą się z nim problemy
+            \item Do czego używamy DTO i czym jest kontroler
+        \end{itemize}
+    \section{tl;dr}
+        Linki dla chętnych
 \end{document}
