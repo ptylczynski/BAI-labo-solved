@@ -54,8 +54,23 @@ public class ClientService {
         return clientDAO;
     }
 
+    public ClientDAO rent(Long carId, Long clientId) throws Exception {
+        return this.rent(
+                this.carService.getOne(carId),
+                this.getOne(clientId)
+        );
+    }
+
     public ClientDAO returnn(CarDAO carDAO, ClientDAO clientDAO, Double distanceCovered){
         this.carService.returnn(carDAO, distanceCovered);
         return clientDAO;
+    }
+
+    public ClientDAO returnn(Long carId, Long clientId, Double distance) throws Exception {
+        return this.returnn(
+                this.carService.getOne(carId),
+                this.getOne(clientId),
+                distance
+        );
     }
 }
