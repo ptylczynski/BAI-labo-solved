@@ -12,3 +12,8 @@
 \contentsline {subsection}{\numberline {5.1}CarService}{7}%
 \contentsline {subsection}{\numberline {5.2}ClientService}{10}%
 \contentsline {section}{\numberline {6}Warstwa Prezentacji}{12}%
+\contentsline {subsection}{\numberline {6.1}Obiekty Transferowe}{12}%
+\contentsline {subsubsection}{\numberline {6.1.1}CarDTO}{12}%
+\contentsline {subsubsection}{\numberline {6.1.2}ClientDTO}{13}%
+\contentsline {subsection}{\numberline {6.2}Kontrolery}{14}%
+\contentsline {subsubsection}{\numberline {6.2.1}CarController}{14}%

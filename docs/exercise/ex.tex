@@ -21,16 +21,20 @@
     \pagebreak
     
     \section{Wstęp}
-    Celem tego laboratorium jest pokazanie działanie frameworku Spring w praktyce. Podczas zajęć wykonasz prosty serwer, który obsłuży API dla wypożyczalni samochodów. \\
+    Celem tego laboratorium jest pokazanie działanie frameworku Spring w praktyce. Podczas zajęć wykonasz prosty serwer, który obsłuży API dla wypożyczalni samochodów. 
+    
     Stworzone przez ciebie rozwiązanie będzie bardzo uproszczone w porównaniu do prawdziwych serwerów jakie obsługiwały by takie zadanie. Jednak nie oznacza to że będzie bezużyteczne. Nie licząc braku systemu autoryzacji, stworzysz serwer zgodnie z aktualnymi standardami produkcji takich systemów.
     
     \section{Założenia projektu}
-        Tworzymy prosty serwer backendowy służący do obsługi wyporzyczalni samochodów. Chcielibyśmy móc dodawać i usuwać samochody z naszej wyporzyczalni. Oczywiście nie powinno się to dziać zawsze, ale tylko wtedy kiedy nikt z nich nie korzysta - szczególnie ważne w momencie gdy mówimy o usuwaniu auto ze stanu wyporzyczalni. \\
+        Tworzymy prosty serwer backendowy służący do obsługi wyporzyczalni samochodów. Chcielibyśmy móc dodawać i usuwać samochody z naszej wyporzyczalni. Oczywiście nie powinno się to dziać zawsze, ale tylko wtedy kiedy nikt z nich nie korzysta - szczególnie ważne w momencie gdy mówimy o usuwaniu auto ze stanu wyporzyczalni. 
+        
         Dodatkową opcją będzie śledzenie kto, kiedy i co wyprzyczył. Z tego powodu będziemy musieli stworzyć bazę danych klientów.
     
     \section{Inicjalizacja projektu}
-        Całość tworzenia kodu rozpoczniemy od stworzenia projektu. W tym celu mamy dwa wyjścia. W pierwszym możemy ręcznie szukać odpowiednich modułów Springa w internecie i repozytoriach \emph{Mavena}. W drugim skorzystamy z rozwiązania Spring Initializr. Trzymając się założeń, że korzystamy z rowiązań wykorzystywanych w przemyśle skorzystamy z Initializr. \\
-        Initializr został stworzony w 2013 roku przez firmę VMware, Inc. i jest prostą aplikacją służącą do szybkiego tworzenia baz dla projektów Springa. Możemy w nim wybrać interesujące nas moduły a aplikacja sama zajmie się wyszukaniem ich w repozytoriach Maven i dodaniem odpowiednich wpisów w \emph{pom.xml} jaki i stworzeniem odpowiednich plików w samym projekcie. \\
+        Całość tworzenia kodu rozpoczniemy od stworzenia projektu. W tym celu mamy dwa wyjścia. W pierwszym możemy ręcznie szukać odpowiednich modułów Springa w internecie i repozytoriach \emph{Mavena}. W drugim skorzystamy z rozwiązania Spring Initializr. Trzymając się założeń, że korzystamy z rowiązań wykorzystywanych w przemyśle skorzystamy z Initializr. 
+        
+        Initializr został stworzony w 2013 roku przez firmę VMware, Inc. i jest prostą aplikacją służącą do szybkiego tworzenia baz dla projektów Springa. Możemy w nim wybrać interesujące nas moduły a aplikacja sama zajmie się wyszukaniem ich w repozytoriach Maven i dodaniem odpowiednich wpisów w \emph{pom.xml} jaki i stworzeniem odpowiednich plików w samym projekcie. 
+        
         Osoby chętne mogą same skorzystać z Initializr i przejść przez kreator. W tym celu należy wskazać moduły:
         \begin{itemize}
             \item Lombok
@@ -38,7 +42,8 @@
             \item Spring Data JPA
             \item H2 Database
         \end{itemize}
-        Zachęcam jednak do pobrania gotowego prekonfigurowanego repozytorium z linku na końcu skryptu. Pomoże to w uniknięciu prostych błędów i rozbierzności w samej konfiguracji projektu. \\
+        Zachęcam jednak do pobrania gotowego prekonfigurowanego repozytorium z linku na końcu skryptu. Pomoże to w uniknięciu prostych błędów i rozbierzności w samej konfiguracji projektu. 
+        
         Ważnym elementem do rozważenia na tym etapie jest struktura projektu. Spring nie narzuca nic konkretnego, jednak skorzystamy z podejścia jedna funkcjinalność, jeden folder. Pomoże to nam w przyszłości szybko nawigować się po projekcie. Szczególnie jeśli kiedyś zdecydujemy się na jego rozwijanie. Zastanówmy się teraz jakie funkcjonalności mamy do zaimplementowania. Na pewno jest to element zajmujący się klientami, oraz element zajmujący się klientami. Z tego powodu stworzymy dwa foldery. Jeden dedykowany dla kodu obsługującego logikę kilentów i jeden dla logiki aut.
         
         \begin{figure}[h]
@@ -47,11 +52,13 @@
         \end{figure}
     
     \section{Modelowanie Bazy Danych}
-        Najprostszym, jednak bardzo nie efektywnym sposobem będzie ręczne stworzenie schematu bazy danych przez podawanie odpowiednich komend SQL. Następnie do obsługi takiej bazy danych użylibyśmy biblioteki JDBC, tak jak było to pokazywane na zajęciach z Systemów Baz Danych podczas 5 semestru. Jednak jak wspomniałem na początku jest to podejście bardzo nie efektywne. Wyobraźmy sobie, że zamiast modelowania tylko dwóch elementów chcielibyśmy stworzyć ich dwadzieścia. Być może stworzenie bazy danych nie byłoby wyzwaniem, jednak stworzenie i zarządanie skryptami JDBC już tak. Dalej byłoby jeszcze gorzej, ponieważ bazę danych od czasu do czasu trzeba zmieniać, zgodnie ze zmieniającymi się wymaganiami projektu, a to niesie ze sobą potrzebe ręcznego przemodelowania bazy danych a to zmianę skryptów. A na końcu musimy pamiętać, że wiele baz danych posiada swoje charakterystyczne dialekty, co wcale nie ułatwia tworzenia agnostycznego kodu. \\
+        Najprostszym, jednak bardzo nie efektywnym sposobem będzie ręczne stworzenie schematu bazy danych przez podawanie odpowiednich komend SQL. Następnie do obsługi takiej bazy danych użylibyśmy biblioteki JDBC, tak jak było to pokazywane na zajęciach z Systemów Baz Danych podczas 5 semestru. Jednak jak wspomniałem na początku jest to podejście bardzo nie efektywne. Wyobraźmy sobie, że zamiast modelowania tylko dwóch elementów chcielibyśmy stworzyć ich dwadzieścia. Być może stworzenie bazy danych nie byłoby wyzwaniem, jednak stworzenie i zarządanie skryptami JDBC już tak. Dalej byłoby jeszcze gorzej, ponieważ bazę danych od czasu do czasu trzeba zmieniać, zgodnie ze zmieniającymi się wymaganiami projektu, a to niesie ze sobą potrzebe ręcznego przemodelowania bazy danych a to zmianę skryptów. A na końcu musimy pamiętać, że wiele baz danych posiada swoje charakterystyczne dialekty, co wcale nie ułatwia tworzenia agnostycznego kodu. 
+        
         Z tego powodu skorzystamy z jednego z modułów, który sami dodaliśmy - Spring Data. Jest to moduł, który za pomocą standardu JPA - Java Persistence API - oraz projektu Hibernate pozwala na modelowanie bazy danych jako obiektów Javy. Hibernate to ORM - Object Relation Mapper. W ten sposób możemy całkowicie zapomnieć o pisaniu czegokolwiek samemu. Od teraz będziemy tworzyć obiekty POJO i odpowiednio je oznaczać a Hibernate zrobi wszystko za nas.
         
         \subsection{Konfigurowanie Bazy Danych}
-            Zgodnie z deklaracjami w \emph{pom.xml} będziemy używać bazy danych H2. Jest to proste rozwiązanie w sam raz do celów deweloperskich. Taka baza danych jest włączana za każdym razem, gdy uruchamiamy nasz program i niszczona zaraz po jego zakończeniu. Z tego powodu nie musimy pamiętać o jej ręcznym instalowaniu, włczaniu, wyłączaniu i pielęgnowaniu. \\
+            Zgodnie z deklaracjami w \emph{pom.xml} będziemy używać bazy danych H2. Jest to proste rozwiązanie w sam raz do celów deweloperskich. Taka baza danych jest włączana za każdym razem, gdy uruchamiamy nasz program i niszczona zaraz po jego zakończeniu. Z tego powodu nie musimy pamiętać o jej ręcznym instalowaniu, włczaniu, wyłączaniu i pielęgnowaniu. 
+            
             Niestaty jest to też jej duża bolączka, ponieważ za każdym razem gdy wyłączymy nasz program tracimy całą zawartość bazy danych. Na szczeście można to łatwo naprawić - wystarczy podmienić domyślną konfigurację, na taką, która będzie przechowywała dane w plikach. Stracimy w ten sposób na szybkości działania, jednak nie będziemy już tracili danych przy restracie porgramu. \\
             Dodajmy więc do pliku \emph{application.properties} kilka linijek.
             \begin{minted}{properties}
@@ -113,8 +120,10 @@ public class ClientDAO {
 }
             \end{minted}
         \subsubsection{Połączenie CarDAO i ClientDAO}
-            W tym momencie mamy dwa osobne obiekty. CarDAO - reprezentujący auto i ClientDAO - reprezentujący klienta. Teraz należałoby stworzyć jakieś połączenie między nimi. Oczywiście takim połączeniem można zarządzać ręcznie, albo skorzystać z możliwości ORM. My skorzystamy z ORM. \\
-            Najpierw zastanówmy się jaki typ połączenia należało by wybrać. Zgodnie z logiką chcielibyśmy, aby jeden samochód był wyporzyczony tylko i wyłącznie przez jednego klienta w danym momencie. Natomiast nic nie broni, aby jeden klient wyporzyczał wiele auto naraz. Oznacza to połączenie \textbf{jeden} klient \textbf{do wielu} samochodów. \\
+            W tym momencie mamy dwa osobne obiekty. CarDAO - reprezentujący auto i ClientDAO - reprezentujący klienta. Teraz należałoby stworzyć jakieś połączenie między nimi. Oczywiście takim połączeniem można zarządzać ręcznie, albo skorzystać z możliwości ORM. My skorzystamy z ORM. 
+            
+            Najpierw zastanówmy się jaki typ połączenia należało by wybrać. Zgodnie z logiką chcielibyśmy, aby jeden samochód był wyporzyczony tylko i wyłącznie przez jednego klienta w danym momencie. Natomiast nic nie broni, aby jeden klient wyporzyczał wiele auto naraz. Oznacza to połączenie \textbf{jeden} klient \textbf{do wielu} samochodów. 
+            
             Dodajmy więc taką informację do obiektów DAO. W klasie CarDAO dopisujemy
             \begin{minted}{java}
 @ManyToOne(
@@ -132,8 +141,10 @@ private Collection<CarDAO> rentedCars;
             \end{minted}
             Ciekawym elementem jest argument $fetch$. Definuje on  w jaki spodób będą pobierane dane z bazy. Zwróćmy uwagę, że zarówno obiekt klienta jak i obiekt samochodu posiadają referencje do siebie nawzajem. Tworzy to stosunkowo niebezpieczną sytuację, w której Hibernate próbowałby pobrać informacje o kliencie, w którym znalazłby referencję do samochdów jakie dany klient wyporzyczył, a w każdym samochodzie znalazłby referencję do osób go wyporzyczających, a w każdej osobie referencję do auto jakie wyporzyczyła i tak tworzymy nieskończoną rekurencję, przepełniamy stos w maszynie wirtualnej (JVM) i crashujemy program. Z tego powodu ustawamy argument $fetch$ na $LAZY$. Oznacza to, że ORM będzie pobierał informacje z bazy danych tylko i wyłącznie gdy program będzie potrzebował do nich dostępu. W ten sposób unikniemy nieskończonej rekurencji. Oczywiście wartość $LAZY$ jest ustawiana przez Spring domyślnie, aby przyspieszyć działanie aplikacji i nie ma potrzeby nadpisywania jej tą samą wartością, jednak zrobiliśmy to, żeby pokazać bardzo poważny problem na jaki niedługo natkniemy się jeszcze raz.
         \subsection{Dostęp do danych}
-            Do tej pory zajmowaliśmy się tylko definiowaniem wyglądu bazy danych. Teraz przyjżymy się jak uzyskać dostęp do zgoromadzonych danych. W tym celu skorzystamy z kolejnego udogodnienia modułu Spring Data - czyli repozytoriów. \\
-            Są to interfejsy za pomocą, których będziemy definiowali polecenia dla bazy danych. Zauważmy, że w żadnym przypadku nie będziemy używali poleceń SQL. Pozwala to na maksymalną abstrakcję od tego jakiej bazy danych będziemy używali. Aktualnie jest to H2, ale nic nie szkodzi aby podpiąć do naszego projektu MySQL, OracleDB, Postgree, Aurore, albo RedShift.\\
+            Do tej pory zajmowaliśmy się tylko definiowaniem wyglądu bazy danych. Teraz przyjżymy się jak uzyskać dostęp do zgoromadzonych danych. W tym celu skorzystamy z kolejnego udogodnienia modułu Spring Data - czyli repozytoriów. 
+            
+            Są to interfejsy za pomocą, których będziemy definiowali polecenia dla bazy danych. Zauważmy, że w żadnym przypadku nie będziemy używali poleceń SQL. Pozwala to na maksymalną abstrakcję od tego jakiej bazy danych będziemy używali. Aktualnie jest to H2, ale nic nie szkodzi aby podpiąć do naszego projektu MySQL, OracleDB, Postgree, Aurore, albo RedShift.
+            
             Zacznijmy od zdefiniowania Repozytorium dla klienta
             \begin{minted}{java}
 public interface ClientRepository extends CrudRepository<ClientDAO, Long> {
@@ -147,9 +158,10 @@ public interface CarRepository extends CrudRepository<CarDAO, Long> {
     Collection<CarDAO> findAllByRentedBy(ClientDAO clientDAO);
 }
             \end{minted}
-            Zauważmy, że nie piszemy całych repozytoriów samemu. Rozszerzamy już predefiniwane repozytorium - $CrudRepository$. Znajdują się w nim definicje popularnych poleceń, tworzenie, aktualizacji, usuwania i odczutu danych. Pamiętajmy też, że \textbf{repozytoria nie są klasami tylko interfejsami}. \\
+            Zauważmy, że nie piszemy całych repozytoriów samemu. Rozszerzamy już predefiniwane repozytorium - $CrudRepository$. Znajdują się w nim definicje popularnych poleceń, tworzenie, aktualizacji, usuwania i odczutu danych. Pamiętajmy też, że \textbf{repozytoria nie są klasami tylko interfejsami}. 
     \section{Logika aplikacji}
-        W tym momencie mamy już wszystkie elementy potrzebne do stworzenia logiki naszej aplikacji. Zwyczajowo logikę umieścimy w specjalnych klasach - serwisach. Robi się tak z wielu powodów a niektóre z nich zobaczysz na przykładach w dalszych częściach tego tutorialu. \\
+        W tym momencie mamy już wszystkie elementy potrzebne do stworzenia logiki naszej aplikacji. Zwyczajowo logikę umieścimy w specjalnych klasach - serwisach. Robi się tak z wielu powodów a niektóre z nich zobaczysz na przykładach w dalszych częściach tego tutorialu. 
+        
         Stworzymy dwa serwisy, po jednym dla logiki klientów i aut. 
         \subsection{CarService}
         Zacznijmy od serwisu aut - \textbf{CarService}
@@ -158,7 +170,8 @@ public interface CarRepository extends CrudRepository<CarDAO, Long> {
 public class CarService {
 }
         \end{minted}
-        Użyliśmy tutaj specjalnej adnotacji $@Service$. Podpowiada on Springowi, że klasa którą piszemy jest specjalnego przeznaczenia - jest serwisem. Spring w czasie uruchamiania aplikacji za każdym razem przegląda wszystkie klasy w celu znalezienia takiej adnotaji. \\
+        Użyliśmy tutaj specjalnej adnotacji $@Service$. Podpowiada on Springowi, że klasa którą piszemy jest specjalnego przeznaczenia - jest serwisem. Spring w czasie uruchamiania aplikacji za każdym razem przegląda wszystkie klasy w celu znalezienia takiej adnotaji. 
+        
         Jako że piszemy logikę dla samochodu powinniśmy mieć powiązanie z repozytorium odpowiedzialnym za interakcję z samochodami w bazie danych. Dodajmy je.
         \begin{minted}{java}
 @Service
@@ -316,6 +329,82 @@ public class ClientService {
         \end{minted}
 
     \section{Warstwa Prezentacji}
-        Ostatnią rzeczą do wykonania zostaje część programu odpowiedzialna za komunikację z użytkownikiem. Jest to warstwa prezentacji. 
+        Ostatnią rzeczą do wykonania zostaje część programu odpowiedzialna za komunikację z użytkownikiem. Jest to warstwa prezentacji. Zwyczajowo klasy odpowiedzialne za komunikowanie się z użytkownikiem to kontrolery. Z tego powodu będa posiadały końcówkę $Controller$.
+        \subsection{Obiekty Transferowe}
+            Zanim przejdziemy do implementacji kontolerów, musimy zająć się problemem nieskończonej rekurencji w obiektach DAO. Dla warstwy logiki biznesowej naprawiliśmy ten problem stosując \emph{lazy-fetching}. Oznaczało to tyle, że ORM nie próbował wyciągać z bazy danych całego obiektu a tylko te części, które były w danym momencie potrzebne. 
+            
+            Teraz problem jest o wiele poważniejszy. Jeżeli nic z nim nie zrobimy to pojawi się w momencie serializowania obiektu do formatu JSON - w prostych słowach, gdzy będziemy chcieli pokazać coś użytkownikowi to zabijemy go niekończonym strumieniem danych - nie dobrze. Stanie się tak, ponieważ moduł odpowiedzialny za zamienianie obiektów do sformatowanego do postaci JSONa tekstu, będzie starał się przetrawersować CAŁY obiekt. To oznacza, że zmusi ORM do pobierania coraz głębszych warstw obiektu, a to daje skutek podobny do natychmiastowego pobrania całego obiektu do pamięci RAM - bardzo źle. 
+            
+            Rozwiązania tego problemu są dwa. Możemy pobawić się adnotacjami i wskazać Jacksonowi co należy serializować a co lepiej sobie odupścić i w ten sposób przerwiemy cykl. Alternatywnie możemy skorzystać z obiektów transferowych - DTO - Data Transfer Object. 
+            
+            DTO najczęściej zawierają tylko pewne pola z DAO, w taki sposób aby zapobiegać zapętleniom. Co więcej, jedeo DAO może posiadać wiele DTO. Jest to największa przewaga wykorzystania obiektów transferowych nad sterowaniem serializacją za pomocą adnotacji.
+            
+            \subsubsection{CarDTO}
+                Zacznijmy od stworzenia obiektu transferowego dla auta. Kierując się logiką stwierdzamy, że użytkownik samochodu, nie musi wiedzieć, że samochód, który wyporzycza jest wyporzyczany przez niego. Skoro go wyporzyczył to już to wie. Z tego powodu usuniemy z obiektu samochodu informację o tym kto go wyporzycza, a przez to przerwiemy cykl.
+                \begin{minted}{java}
+@Data
+@Builder
+@AllArgsConstructor
+public class CarDTO {
+    private Long id;
+    private String numberPlate;
+    private String seatsNumber;
+    private Double totalDistance;
+
+    public static CarDTO toDTO(CarDAO entity){
+        return CarDTO.builder()
+                .id(entity.getId())
+                .numberPlate(entity.getNumberPlate())
+                .seatsNumber(entity.getSeatsNumber())
+                .totalDistance(entity.getTotalDistance())
+                .build();
+    }
+}
+                \end{minted}
+                \begin{description}
+                    \item[@Builder] jest adnotacją Lomboka, która pozwala na wykorzystanie wzorcu budowniczego (Builder Pattern) do tworzenia obiektów danej klasy
+                    \item[@AllArgsConstructor] kolejna adnotacja Lomboka, pozwalająca na stworzenie konstruktora skladającego się ze wszystkich pól danej klasy. Domyślnie adnotacj $@Data$ zawiera pusty konstruktor - taki, który nie posiada argumentów
+                \end{description}
+            \subsubsection{ClientDTO}
+                Teraz, czas na twoją pracę. W podobny sposób zaimplementuj obiekt transferowy dla obiektu klienta. Pamiętaj o tym, że  $ClientDAO$ w polu $rentedCars$ przechowuje całą listę obiektów CarDAO do których przed chwilą stworzyliśmy obiekty transferowe. Pamiętaj, że w obiekcie transferowym nie można przechowywać obiektów DAO, dlatego musisz zamienić je na DTO.
+                
+                O ile zrobiłeś wszystko dobrze to powinieneś otrzymać kod podobny do tego:
+                \begin{minted}{java}
+@Data
+@Builder
+@AllArgsConstructor
+public class ClientDTO {
+    private Long id;
+    private String name;
+    private String surname;
+    private String govID;
+    private LocalDateTime lastSeen;
+    private Collection<CarDTO> rentedCars;
+
+    public static ClientDTO toDTO(ClientDAO entity){
+        return ClientDTO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .surname(entity.getSurname())
+                .govID(entity.getGovID())
+                .lastSeen(entity.getLastSeen())
+                .rentedCars(
+                        entity.getRentedCars().stream()
+                                .map(CarDTO::toDTO)
+                                .collect(Collectors.toList())
+                )
+                .build();
+    }
+}
+                \end{minted}
+        \subsection{Kontrolery}
+            Jeżeli rozwiązaliśmy problem z obiektami DTO i DAO, to możemy przejść do już ostatniej części tego laboratorium. Stworzymy teraz kontrolery.
+            \subsubsection{CarController}
+                Bedzie to obiekt odpowiedzialny za interakcję użytkownika z samochodem. Chcielibyśmy umożliwić klientowi dwie operacje:
+                \begin{description}
+                    \item[GET /car/{id}] pozwoli na odczytywanie informacji o samochodzie 
+                    \item[POST /car/]  pozwoli na dodawanie nowych samochodów
+                \end{description}
+                
         
 \end{document}

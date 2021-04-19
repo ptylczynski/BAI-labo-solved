@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@Data}
+\PYG{n+nd}{@Builder}
+\PYG{n+nd}{@AllArgsConstructor}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{CarDTO} \PYG{p}{\PYGZob{}}
+    \PYG{k+kd}{private} \PYG{n}{Long} \PYG{n}{id}\PYG{p}{;}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{numberPlate}\PYG{p}{;}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{seatsNumber}\PYG{p}{;}
+    \PYG{k+kd}{private} \PYG{n}{Double} \PYG{n}{totalDistance}\PYG{p}{;}
+
+    \PYG{k+kd}{public} \PYG{k+kd}{static} \PYG{n}{CarDTO} \PYG{n+nf}{toDTO}\PYG{p}{(}\PYG{n}{CarDAO} \PYG{n}{entity}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{CarDTO}\PYG{p}{.}\PYG{n+na}{builder}\PYG{p}{()}
+                \PYG{p}{.}\PYG{n+na}{id}\PYG{p}{(}\PYG{n}{entity}\PYG{p}{.}\PYG{n+na}{getId}\PYG{p}{())}
+                \PYG{p}{.}\PYG{n+na}{numberPlate}\PYG{p}{(}\PYG{n}{entity}\PYG{p}{.}\PYG{n+na}{getNumberPlate}\PYG{p}{())}
+                \PYG{p}{.}\PYG{n+na}{seatsNumber}\PYG{p}{(}\PYG{n}{entity}\PYG{p}{.}\PYG{n+na}{getSeatsNumber}\PYG{p}{())}
+                \PYG{p}{.}\PYG{n+na}{totalDistance}\PYG{p}{(}\PYG{n}{entity}\PYG{p}{.}\PYG{n+na}{getTotalDistance}\PYG{p}{())}
+                \PYG{p}{.}\PYG{n+na}{build}\PYG{p}{();}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
