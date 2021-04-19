@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1618834522 "/home/piotr/Documents/car-manager/docs/exercise/ex.tex" "ex.pdf" "ex" 1618834523
+["pdflatex"] 1618860795 "/home/piotr/Documents/car-manager/docs/exercise/ex.tex" "ex.pdf" "ex" 1618860795
   "../img/tree.png" 1618780279 26191 f5eace513b54a57e456e9af0e946259b ""
-  "/dev/null" 1618814714 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "/dev/null" 1618860036 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/etc/texmf/web2c/texmf.cnf" 1611417418 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk" 1618319436 25396 4216c0f6d91c0c0d42c0cbc86204bf1a ""
   "/home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk" 1618340492 31928 f488ea30f984bfac27854ff827c1c1d0 ""
@@ -13,7 +13,7 @@
   "/home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk" 1618780420 20008 fa5068df809fd8a353df1e07f2d9059e ""
   "/home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk" 1618308322 24132 b8a2a4bbcb7cbadc8e95dbb6c1a71bfc ""
   "/home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk" 1618319235 11524 be1f5732cac8243a7e762137dd1b7fd9 ""
-  "/home/piotr/Documents/car-manager/docs/exercise/ex.tex" 1618834516 21820 947d121838c2e00b41ec2dd911ccd761 ""
+  "/home/piotr/Documents/car-manager/docs/exercise/ex.tex" 1618860794 21999 04c6ae35d61b8ebd6d07aed5226ccc0e ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1136768653 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -102,11 +102,11 @@
   "_minted-ex/E5CDD9AD4CFDCB4ABDF768E565BF95442365A936169D73C27B01B3B3738667D7.pygtex" 1618830627 381 cf1e8e9ec47b070a98469497c18b9284 ""
   "_minted-ex/default-pyg-prefix.pygstyle" 1618825840 7889 3ce1fbc763e3e2c748310f4fe31722b6 ""
   "_minted-ex/default.pygstyle" 1618825840 9275 f200be7fc0b7de2461cca28cb35b1427 ""
-  "ex.aux" 1618834523 2671 f7cdee4e571fa31b5d15f24c611b9695 "pdflatex"
-  "ex.tex" 1618834516 21820 947d121838c2e00b41ec2dd911ccd761 ""
-  "ex.toc" 1618834523 851 e848d7c4b28180d266f6cee478f15567 "pdflatex"
+  "ex.aux" 1618860795 2777 3858f3786900eb1a52f0b16d55778eec "pdflatex"
+  "ex.tex" 1618860794 21999 04c6ae35d61b8ebd6d07aed5226ccc0e ""
+  "ex.toc" 1618860795 916 a1d938e39b6f2fb7605a7a3cad3b7045 "pdflatex"
   (generated)
-  "ex.log"
   "ex.aux"
-  "ex.toc"
   "ex.pdf"
+  "ex.log"
+  "ex.toc"
