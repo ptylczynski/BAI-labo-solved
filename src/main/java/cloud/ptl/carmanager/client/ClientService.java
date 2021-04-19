@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.CommandLinePropertySource;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     private ClientDAO create(ClientDAO clientDAO){
+        if (clientDAO.getRentedCars() == null)
+            clientDAO.setRentedCars(new ArrayList<>());
         return this.clientRepository.save(clientDAO);
     }
 
@@ -26,7 +29,7 @@ public class ClientService {
         return this.clientRepository.existsByGovID(clientDAO.getGovID());
     }
 
-    private Boolean checkIfExsit(Long id){
+    private Boolean checkIfExist(Long id){
         return this.clientRepository.existsById(id);
     }
 

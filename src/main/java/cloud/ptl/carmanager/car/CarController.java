@@ -18,7 +18,7 @@ public class CarController {
         );
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/")
     public CarDTO postOne(
             @RequestBody CarDAO carDAO
     ){
