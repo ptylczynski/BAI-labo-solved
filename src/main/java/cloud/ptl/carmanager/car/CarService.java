@@ -40,4 +40,17 @@ public class CarService {
     public Collection<CarDAO> getAllRentedBy(ClientDAO clientDAO){
         return this.carRepository.findAllByRentedBy(clientDAO);
     }
+
+    public CarDAO rent(CarDAO carDAO, ClientDAO clientDAO){
+        carDAO.setRentedBy(clientDAO);
+        return this.carRepository.save(carDAO);
+    }
+
+    public CarDAO returnn(CarDAO carDAO, Double distanceCovered){
+        carDAO.setRentedBy(null);
+        carDAO.setTotalDistance(
+                carDAO.getTotalDistance() + distanceCovered
+        );
+        return this.carRepository.save(carDAO);
+    }
 }

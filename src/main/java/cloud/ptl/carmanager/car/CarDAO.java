@@ -15,7 +15,7 @@ public class CarDAO {
 
     private String numberPlate;
     private String seatsNumber;
-    private String totalDistance;
+    private Double totalDistance;
 
     @ManyToOne(
             fetch = FetchType.LAZY

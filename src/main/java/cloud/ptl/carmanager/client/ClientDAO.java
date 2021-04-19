@@ -18,6 +18,7 @@ public class ClientDAO {
 
     private String name;
     private String surname;
+    private String govID;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate

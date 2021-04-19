@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.23)  18 APR 2021 23:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.23)  19 APR 2021 10:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -123,7 +123,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  30i,6n,25p,1053b,264s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/piotr/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
-Output written on /home/piotr/Documents/car-manager/docs/exercise/ex.pdf (5 pages, 98935 bytes).
+Output written on /home/piotr/Documents/car-manager/docs/exercise/ex.pdf (5 pages, 98925 bytes).
 PDF statistics:
  274 PDF objects out of 1000 (max. 8388607)
  48 compressed objects within 1 object stream
