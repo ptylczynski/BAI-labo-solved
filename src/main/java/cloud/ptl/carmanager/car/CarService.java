@@ -1,5 +1,6 @@
 package cloud.ptl.carmanager.car;
 
+import cloud.ptl.carmanager.ProcessingException;
 import cloud.ptl.carmanager.client.ClientDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class CarService {
         Optional<CarDAO> optionalCarDAO =
                 this.carRepository.findById(id);
         if(optionalCarDAO.isEmpty())
-            throw new Exception("Car not found");
+            throw new ProcessingException("Car not found");
         else return optionalCarDAO.get();
     }
 
@@ -47,15 +48,17 @@ public class CarService {
             return this.carRepository.save(carDAO);
         }
         if (carDAO.getRentedBy().equals(clientDAO))
-            throw new Exception("Already Rented By You");
+            throw new ProcessingException("Already Rented By You");
         if (carDAO.getRentedBy() != null)
-            throw new Exception("Already Rented");
+            throw new ProcessingException("Already Rented");
         return null;
     }
 
     public CarDAO returnn(CarDAO carDAO, ClientDAO clientDAO, Double distanceCovered) throws Exception {
+        if (carDAO.getRentedBy() == null)
+            throw new ProcessingException("Car is not rented by anyone");
         if (!carDAO.getRentedBy().equals(clientDAO))
-            throw new Exception("Car is not rented by you");
+            throw new ProcessingException("Car is not rented by you");
         carDAO.setRentedBy(null);
         carDAO.setTotalDistance(
                 carDAO.getTotalDistance() + distanceCovered

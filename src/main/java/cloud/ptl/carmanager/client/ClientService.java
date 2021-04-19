@@ -1,5 +1,6 @@
 package cloud.ptl.carmanager.client;
 
+import cloud.ptl.carmanager.ProcessingException;
 import cloud.ptl.carmanager.car.CarDAO;
 import cloud.ptl.carmanager.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class ClientService {
         Optional<ClientDAO> clientDAOOptional =
                 this.clientRepository.findById(id);
         if (clientDAOOptional.isEmpty())
-            throw new Exception("Not Found");
+            throw new ProcessingException("Not Found");
         return clientDAOOptional.get();
     }
 
