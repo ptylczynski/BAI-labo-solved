@@ -28,5 +28,5 @@ public class ClientDAO {
             mappedBy = "rentedBy",
             fetch = FetchType.LAZY
     )
-    Collection<CarDAO> rentedCars;
+    private Collection<CarDAO> rentedCars;
 }

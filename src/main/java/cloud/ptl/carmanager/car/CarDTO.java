@@ -15,10 +15,10 @@ public class CarDTO {
     private String seatsNumber;
     private Double totalDistance;
 
-    public CarDTO toDTO(CarDAO entity){
+    public static CarDTO toDTO(CarDAO entity){
         return CarDTO.builder()
                 .id(entity.getId())
-                .numberPlate(getNumberPlate())
+                .numberPlate(entity.getNumberPlate())
                 .seatsNumber(entity.getSeatsNumber())
                 .totalDistance(entity.getTotalDistance())
                 .build();
