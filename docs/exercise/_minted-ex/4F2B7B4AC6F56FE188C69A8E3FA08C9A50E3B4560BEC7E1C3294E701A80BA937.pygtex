@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+na}{spring.datasource.url}\PYG{o}{=}\PYG{l+s}{jdbc:h2:file:./db}
+\PYG{n+na}{spring.datasource.driverClassName}\PYG{o}{=}\PYG{l+s}{org.h2.Driver}
+\PYG{n+na}{spring.datasource.username}\PYG{o}{=}\PYG{l+s}{sa}
+\PYG{n+na}{spring.datasource.password}\PYG{o}{=}\PYG{l+s}{admin}
+\PYG{n+na}{spring.jpa.database\PYGZhy{}platform}\PYG{o}{=}\PYG{l+s}{org.hibernate.dialect.H2Dialect}
+\PYG{n+na}{spring.jpa.hibernate.ddl\PYGZhy{}auto}\PYG{o}{=}\PYG{l+s}{update}
+\PYG{n+na}{spring.h2.console.enabled}\PYG{o}{=}\PYG{l+s}{true}
+\PYG{n+na}{spring.h2.console.path}\PYG{o}{=}\PYG{l+s}{/h2}
+\end{Verbatim}

@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@Entity}
+\PYG{n+nd}{@Data}
+\PYG{n+nd}{@Table}\PYG{p}{(}\PYG{n}{name} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}client\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{ClientDAO} \PYG{p}{\PYGZob{}}
+    \PYG{n+nd}{@Id} \PYG{n+nd}{@GeneratedValue}\PYG{p}{(}\PYG{n}{strategy} \PYG{o}{=} \PYG{n}{GenerationType}\PYG{p}{.}\PYG{n+na}{IDENTITY}\PYG{p}{)}
+    \PYG{k+kd}{private} \PYG{n}{Long} \PYG{n}{id}\PYG{p}{;}
+
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{name}\PYG{p}{;}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{surname}\PYG{p}{;}
+    \PYG{k+kd}{private} \PYG{n}{String} \PYG{n}{govID}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

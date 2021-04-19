@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{k+kd}{interface} \PYG{n+nc}{ClientRepository} \PYG{k+kd}{extends} \PYG{n}{CrudRepository}\PYG{o}{\PYGZlt{}}\PYG{n}{ClientDAO}\PYG{p}{,} \PYG{n}{Long}\PYG{o}{\PYGZgt{}} \PYG{p}{\PYGZob{}}
+    \PYG{n}{Boolean} \PYG{n+nf}{existsByGovID}\PYG{p}{(}\PYG{n}{String} \PYG{n}{govID}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

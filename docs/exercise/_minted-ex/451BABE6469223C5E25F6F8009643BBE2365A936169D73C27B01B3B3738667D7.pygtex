@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@Service}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{CarService} \PYG{p}{\PYGZob{}}
+    \PYG{n+nd}{@Autowired}
+    \PYG{k+kd}{private} \PYG{n}{CarRepository} \PYG{n}{carRepository}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

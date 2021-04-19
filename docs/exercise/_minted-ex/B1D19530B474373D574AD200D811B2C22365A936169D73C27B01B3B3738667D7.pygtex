@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{private} \PYG{n}{Boolean} \PYG{n+nf}{checkIfExists}\PYG{p}{(}\PYG{n}{CarDAO} \PYG{n}{carDAO}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getNumberPlate}\PYG{p}{()} \PYG{o}{==} \PYG{k+kc}{null}\PYG{p}{)} \PYG{k}{return} \PYG{k+kc}{false}\PYG{p}{;}
+    \PYG{k}{return}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carRepository}\PYG{p}{.}\PYG{n+na}{existsByNumberPlate}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getNumberPlate}\PYG{p}{());}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@ManyToOne}\PYG{p}{(}
+        \PYG{n}{fetch} \PYG{o}{=} \PYG{n}{FetchType}\PYG{p}{.}\PYG{n+na}{LAZY}
+\PYG{p}{)}
+\PYG{k+kd}{private} \PYG{n}{ClientDAO} \PYG{n}{rentedBy}\PYG{p}{;}
+\end{Verbatim}

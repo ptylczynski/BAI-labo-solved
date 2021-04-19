@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{n}{CarDAO} \PYG{n+nf}{getOne}\PYG{p}{(}\PYG{n}{Long} \PYG{n}{id}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+    \PYG{n}{Optional}\PYG{o}{\PYGZlt{}}\PYG{n}{CarDAO}\PYG{o}{\PYGZgt{}} \PYG{n}{optionalCarDAO} \PYG{o}{=}
+            \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carRepository}\PYG{p}{.}\PYG{n+na}{findById}\PYG{p}{(}\PYG{n}{id}\PYG{p}{);}
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{optionalCarDAO}\PYG{p}{.}\PYG{n+na}{isEmpty}\PYG{p}{())}
+        \PYG{k}{throw} \PYG{k}{new} \PYG{n}{ProcessingException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Car not found\PYGZdq{}}\PYG{p}{);}
+    \PYG{k}{else} \PYG{k}{return} \PYG{n}{optionalCarDAO}\PYG{p}{.}\PYG{n+na}{get}\PYG{p}{();}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

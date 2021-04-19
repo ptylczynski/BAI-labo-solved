@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@OneToMany}\PYG{p}{(}
+        \PYG{n}{mappedBy} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}rentedBy\PYGZdq{}}\PYG{p}{,}
+        \PYG{n}{fetch} \PYG{o}{=} \PYG{n}{FetchType}\PYG{p}{.}\PYG{n+na}{LAZY}
+\PYG{p}{)}
+\PYG{k+kd}{private} \PYG{n}{Collection}\PYG{o}{\PYGZlt{}}\PYG{n}{CarDAO}\PYG{o}{\PYGZgt{}} \PYG{n}{rentedCars}\PYG{p}{;}
+\end{Verbatim}

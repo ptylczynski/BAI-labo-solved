@@ -1,0 +1,69 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@Service}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{ClientService} \PYG{p}{\PYGZob{}}
+    \PYG{n+nd}{@Autowired}
+    \PYG{k+kd}{private} \PYG{n}{CarService} \PYG{n}{carService}\PYG{p}{;}
+
+    \PYG{n+nd}{@Autowired}
+    \PYG{k+kd}{private} \PYG{n}{ClientRepository} \PYG{n}{clientRepository}\PYG{p}{;}
+
+    \PYG{k+kd}{private} \PYG{n}{ClientDAO} \PYG{n+nf}{create}\PYG{p}{(}\PYG{n}{ClientDAO} \PYG{n}{clientDAO}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{.}\PYG{n+na}{getRentedCars}\PYG{p}{()} \PYG{o}{==} \PYG{k+kc}{null}\PYG{p}{)}
+            \PYG{n}{clientDAO}\PYG{p}{.}\PYG{n+na}{setRentedCars}\PYG{p}{(}\PYG{k}{new} \PYG{n}{ArrayList}\PYG{o}{\PYGZlt{}\PYGZgt{}}\PYG{p}{());}
+        \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientRepository}\PYG{p}{.}\PYG{n+na}{save}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{private} \PYG{n}{Boolean} \PYG{n+nf}{checkIfExists}\PYG{p}{(}\PYG{n}{ClientDAO} \PYG{n}{clientDAO}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{.}\PYG{n+na}{getGovID}\PYG{p}{()} \PYG{o}{==} \PYG{k+kc}{null}\PYG{p}{)} \PYG{k}{return} \PYG{k+kc}{false}\PYG{p}{;}
+        \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientRepository}\PYG{p}{.}\PYG{n+na}{existsByGovID}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{.}\PYG{n+na}{getGovID}\PYG{p}{());}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{private} \PYG{n}{Boolean} \PYG{n+nf}{checkIfExist}\PYG{p}{(}\PYG{n}{Long} \PYG{n}{id}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientRepository}\PYG{p}{.}\PYG{n+na}{existsById}\PYG{p}{(}\PYG{n}{id}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{ClientDAO} \PYG{n+nf}{createIfNotExist}\PYG{p}{(}\PYG{n}{ClientDAO} \PYG{n}{clientDAO}\PYG{p}{)\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n+na}{checkIfExists}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{))}
+            \PYG{k}{return} \PYG{n}{clientDAO}\PYG{p}{;}
+        \PYG{k}{else}
+            \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{create}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{ClientDAO} \PYG{n+nf}{getOne}\PYG{p}{(}\PYG{n}{Long} \PYG{n}{id}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+        \PYG{n}{Optional}\PYG{o}{\PYGZlt{}}\PYG{n}{ClientDAO}\PYG{o}{\PYGZgt{}} \PYG{n}{clientDAOOptional} \PYG{o}{=}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientRepository}\PYG{p}{.}\PYG{n+na}{findById}\PYG{p}{(}\PYG{n}{id}\PYG{p}{);}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{clientDAOOptional}\PYG{p}{.}\PYG{n+na}{isEmpty}\PYG{p}{())}
+            \PYG{k}{throw} \PYG{k}{new} \PYG{n}{ProcessingException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Not Found\PYGZdq{}}\PYG{p}{);}
+        \PYG{k}{return} \PYG{n}{clientDAOOptional}\PYG{p}{.}\PYG{n+na}{get}\PYG{p}{();}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{Collection}\PYG{o}{\PYGZlt{}}\PYG{n}{ClientDAO}\PYG{o}{\PYGZgt{}} \PYG{n+nf}{findAll}\PYG{p}{()\PYGZob{}}
+        \PYG{k}{return} \PYG{p}{(}\PYG{n}{Collection}\PYG{o}{\PYGZlt{}}\PYG{n}{ClientDAO}\PYG{o}{\PYGZgt{}}\PYG{p}{)} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{clientRepository}\PYG{p}{.}\PYG{n+na}{findAll}\PYG{p}{();}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{ClientDAO} \PYG{n+nf}{rent}\PYG{p}{(}\PYG{n}{CarDAO} \PYG{n}{carDAO}\PYG{p}{,} \PYG{n}{ClientDAO} \PYG{n}{clientDAO}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+        \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carService}\PYG{p}{.}\PYG{n+na}{rent}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{,} \PYG{n}{clientDAO}\PYG{p}{);}
+        \PYG{k}{return} \PYG{n}{clientDAO}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{ClientDAO} \PYG{n+nf}{rent}\PYG{p}{(}\PYG{n}{Long} \PYG{n}{carId}\PYG{p}{,} \PYG{n}{Long} \PYG{n}{clientId}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{rent}\PYG{p}{(}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carService}\PYG{p}{.}\PYG{n+na}{getOne}\PYG{p}{(}\PYG{n}{carId}\PYG{p}{),}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{getOne}\PYG{p}{(}\PYG{n}{clientId}\PYG{p}{)}
+        \PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{ClientDAO} \PYG{n+nf}{returnn}\PYG{p}{(}\PYG{n}{CarDAO} \PYG{n}{carDAO}\PYG{p}{,} \PYG{n}{ClientDAO} \PYG{n}{clientDAO}\PYG{p}{,} \PYG{n}{Double} \PYG{n}{distanceCovered}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+        \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carService}\PYG{p}{.}\PYG{n+na}{returnn}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{,} \PYG{n}{clientDAO}\PYG{p}{,} \PYG{n}{distanceCovered}\PYG{p}{);}
+        \PYG{k}{return} \PYG{n}{clientDAO}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k+kd}{public} \PYG{n}{ClientDAO} \PYG{n+nf}{returnn}\PYG{p}{(}\PYG{n}{Long} \PYG{n}{carId}\PYG{p}{,} \PYG{n}{Long} \PYG{n}{clientId}\PYG{p}{,} \PYG{n}{Double} \PYG{n}{distance}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{returnn}\PYG{p}{(}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carService}\PYG{p}{.}\PYG{n+na}{getOne}\PYG{p}{(}\PYG{n}{carId}\PYG{p}{),}
+                \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{getOne}\PYG{p}{(}\PYG{n}{clientId}\PYG{p}{),}
+                \PYG{n}{distance}
+        \PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

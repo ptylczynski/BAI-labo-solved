@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{n}{CarDAO} \PYG{n+nf}{rent}\PYG{p}{(}\PYG{n}{CarDAO} \PYG{n}{carDAO}\PYG{p}{,} \PYG{n}{ClientDAO} \PYG{n}{clientDAO}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getRentedBy}\PYG{p}{()} \PYG{o}{==} \PYG{k+kc}{null}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{setRentedBy}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{);}
+        \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carRepository}\PYG{p}{.}\PYG{n+na}{save}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getRentedBy}\PYG{p}{().}\PYG{n+na}{equals}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{))}
+        \PYG{k}{throw} \PYG{k}{new} \PYG{n}{ProcessingException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Already Rented By You\PYGZdq{}}\PYG{p}{);}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getRentedBy}\PYG{p}{()} \PYG{o}{!=} \PYG{k+kc}{null}\PYG{p}{)}
+        \PYG{k}{throw} \PYG{k}{new} \PYG{n}{ProcessingException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Already Rented\PYGZdq{}}\PYG{p}{);}
+    \PYG{k}{return} \PYG{k+kc}{null}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kd}{public} \PYG{n}{CarDAO} \PYG{n+nf}{returnn}\PYG{p}{(}\PYG{n}{CarDAO} \PYG{n}{carDAO}\PYG{p}{,} \PYG{n}{ClientDAO} \PYG{n}{clientDAO}\PYG{p}{,} \PYG{n}{Double} \PYG{n}{distanceCovered}\PYG{p}{)} \PYG{k+kd}{throws} \PYG{n}{Exception} \PYG{p}{\PYGZob{}}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getRentedBy}\PYG{p}{()} \PYG{o}{==} \PYG{k+kc}{null}\PYG{p}{)}
+        \PYG{k}{throw} \PYG{k}{new} \PYG{n}{ProcessingException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Car is not rented by anyone\PYGZdq{}}\PYG{p}{);}
+    \PYG{k}{if} \PYG{p}{(}\PYG{o}{!}\PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getRentedBy}\PYG{p}{().}\PYG{n+na}{equals}\PYG{p}{(}\PYG{n}{clientDAO}\PYG{p}{))}
+        \PYG{k}{throw} \PYG{k}{new} \PYG{n}{ProcessingException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Car is not rented by you\PYGZdq{}}\PYG{p}{);}
+    \PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{setRentedBy}\PYG{p}{(}\PYG{k+kc}{null}\PYG{p}{);}
+    \PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{setTotalDistance}\PYG{p}{(}
+            \PYG{n}{carDAO}\PYG{p}{.}\PYG{n+na}{getTotalDistance}\PYG{p}{()} \PYG{o}{+} \PYG{n}{distanceCovered}
+    \PYG{p}{);}
+        \PYG{n}{eturn} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{carRepository}\PYG{p}{.}\PYG{n+na}{save}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

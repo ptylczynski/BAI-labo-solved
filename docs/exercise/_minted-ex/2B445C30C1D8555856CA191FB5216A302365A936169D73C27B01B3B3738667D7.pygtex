@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{ProcessingException} \PYG{k+kd}{extends} \PYG{n}{Exception}\PYG{p}{\PYGZob{}}
+    \PYG{k+kd}{public} \PYG{n+nf}{ProcessingException}\PYG{p}{(}\PYG{n}{String} \PYG{n}{message}\PYG{p}{)\PYGZob{}}
+        \PYG{k+kd}{super}\PYG{p}{(}\PYG{n}{message}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

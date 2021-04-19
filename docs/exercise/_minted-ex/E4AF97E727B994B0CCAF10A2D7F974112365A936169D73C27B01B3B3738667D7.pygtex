@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{n}{CarDAO} \PYG{n+nf}{createIfNotExits}\PYG{p}{(}\PYG{n}{CarDAO} \PYG{n}{carDAO}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{if}\PYG{p}{(}\PYG{k}{this}\PYG{p}{.}\PYG{n+na}{checkIfExists}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{))}
+        \PYG{k}{return} \PYG{n}{carDAO}\PYG{p}{;}
+    \PYG{k}{else}
+        \PYG{k}{return} \PYG{k}{this}\PYG{p}{.}\PYG{n+na}{create}\PYG{p}{(}\PYG{n}{carDAO}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
