@@ -30,12 +30,10 @@
     \section{Wstęp}
     Celem tego laboratorium jest pokazanie działanie frameworku Spring w praktyce. Podczas zajęć wykonasz prosty serwer, który obsłuży API dla wypożyczalni samochodów. 
     
-    Stworzone przez ciebie rozwiązanie będzie bardzo uproszczone w porównaniu do prawdziwych serwerów jakie obsługiwały by takie zadanie. Jednak nie oznacza to że będzie bezużyteczne. Nie licząc braku systemu autoryzacji, stworzysz serwer zgodnie z aktualnymi standardami produkcji takich systemów.
+    Stworzone przez ciebie rozwiązanie będzie bardzo uproszczone w porównaniu do prawdziwych serwerów jakie obsługiwały by takie zadanie. Jednak nie oznacza to że będzie bezużyteczne. Nie licząc braku systemu autoryzacji, stworzysz serwer zgodnie z aktualnymi standardami produkcyjnymi.
     
     \section{Założenia projektu}
-        Tworzymy prosty serwer backendowy służący do obsługi wyporzyczalni samochodów. Chcielibyśmy móc dodawać i usuwać samochody z naszej wyporzyczalni. Oczywiście nie powinno się to dziać zawsze, ale tylko wtedy kiedy nikt z nich nie korzysta - szczególnie ważne w momencie gdy mówimy o usuwaniu auto ze stanu wyporzyczalni. 
-        
-        Dodatkową opcją będzie śledzenie kto, kiedy i co wyprzyczył. Z tego powodu będziemy musieli stworzyć bazę danych klientów.
+        Tworzymy prosty serwer backendowy służący do obsługi wyporzyczalni samochodów. Chcielibyśmy móc na bierząco śledzić bazę samochodową, oraz dodawać do niej nowe samochody. Dodatkowo, będziemy prowadzić spis klientów korzystających z naszych usług, tak aby móc śledzić, kto i kiedy coś wyporzyczył.
     
     \section{Inicjalizacja projektu}
         Całość tworzenia kodu rozpoczniemy od stworzenia projektu. W tym celu mamy dwa wyjścia. W pierwszym możemy ręcznie szukać odpowiednich modułów Springa w internecie i repozytoriach \emph{Mavena}. W drugim skorzystamy z rozwiązania Spring Initializr. Trzymając się założeń, że korzystamy z rowiązań wykorzystywanych w przemyśle skorzystamy z Initializr. 
@@ -51,7 +49,7 @@
         \end{itemize}
         Zachęcam jednak do pobrania gotowego prekonfigurowanego repozytorium z linku na końcu skryptu. Pomoże to w uniknięciu prostych błędów i rozbierzności w samej konfiguracji projektu. 
         
-        Ważnym elementem do rozważenia na tym etapie jest struktura projektu. Spring nie narzuca nic konkretnego, jednak skorzystamy z podejścia jedna funkcjinalność, jeden folder. Pomoże to nam w przyszłości szybko nawigować się po projekcie. Szczególnie jeśli kiedyś zdecydujemy się na jego rozwijanie. Zastanówmy się teraz jakie funkcjonalności mamy do zaimplementowania. Na pewno jest to element zajmujący się klientami, oraz element zajmujący się klientami. Z tego powodu stworzymy dwa foldery. Jeden dedykowany dla kodu obsługującego logikę kilentów i jeden dla logiki aut.
+        Ważnym elementem do rozważenia na tym etapie jest struktura projektu. Spring nie narzuca nic konkretnego, jednak skorzystamy z podejścia jedna funkcjinalność, jeden folder. Pomoże to nam w przyszłości szybko nawigować się po projekcie. Szczególnie jeśli kiedyś zdecydujemy się na jego rozwijanie. Zastanówmy się teraz jakie funkcjonalności mamy do zaimplementowania. Na pewno jest to element zajmujący się klientami, oraz element zajmujący się samochodami. Z tego powodu stworzymy dwa foldery. Jeden dedykowany dla kodu obsługującego logikę kilentów i jeden dla logiki aut.
         
         \begin{figure}[h]
             \centering
@@ -130,7 +128,7 @@ public class ClientDAO {
         \subsubsection{Połączenie CarDAO i ClientDAO}
             W tym momencie mamy dwa osobne obiekty. CarDAO - reprezentujący auto i ClientDAO - reprezentujący klienta. Teraz należałoby stworzyć jakieś połączenie między nimi. Oczywiście takim połączeniem można zarządzać ręcznie, albo skorzystać z możliwości ORM. My skorzystamy z ORM. 
             
-            Najpierw zastanówmy się jaki typ połączenia należało by wybrać. Zgodnie z logiką chcielibyśmy, aby jeden samochód był wyporzyczony tylko i wyłącznie przez jednego klienta w danym momencie. Natomiast nic nie broni, aby jeden klient wyporzyczał wiele auto naraz. Oznacza to połączenie \textbf{jeden} klient \textbf{do wielu} samochodów. 
+            Najpierw zastanówmy się jaki typ połączenia należało by wybrać. Zgodnie z logiką chcielibyśmy, aby jeden samochód był wyporzyczony tylko i wyłącznie przez jednego klienta w danym momencie. Natomiast nic nie broni, aby jeden klient wyporzyczał wiele aut naraz. Oznacza to połączenie \textbf{jeden} klient \textbf{do wielu} samochodów. 
             
             Dodajmy więc taką informację do obiektów DAO. W klasie CarDAO dopisujemy
             \begin{minted}{java}
@@ -166,7 +164,7 @@ public interface CarRepository extends CrudRepository<CarDAO, Long> {
     Collection<CarDAO> findAllByRentedBy(ClientDAO clientDAO);
 }
             \end{minted}
-            Zauważmy, że nie piszemy całych repozytoriów samemu. Rozszerzamy już predefiniwane repozytorium - $CrudRepository$. Znajdują się w nim definicje popularnych poleceń, tworzenie, aktualizacji, usuwania i odczutu danych. Pamiętajmy też, że \textbf{repozytoria nie są klasami tylko interfejsami}. 
+            Zauważmy, że nie piszemy całych repozytoriów samemu. Rozszerzamy już predefiniwane repozytorium - $CrudRepository$. Znajdują się w nim definicje popularnych poleceń, tworzenia, aktualizacji, usuwania i odczytu danych. Pamiętajmy też, że \textbf{repozytoria nie są klasami tylko interfejsami}. 
     \section{Logika aplikacji}
         W tym momencie mamy już wszystkie elementy potrzebne do stworzenia logiki naszej aplikacji. Zwyczajowo logikę umieścimy w specjalnych klasach - serwisach. Robi się tak z wielu powodów a niektóre z nich zobaczysz na przykładach w dalszych częściach tego tutorialu. 
         
@@ -189,14 +187,17 @@ public class CarService {
 }
 
         \end{minted}
-        Przyjżyj się adnotacji $@Autowired$. Dzięki niej Spring sam w czasie tworzenie obiektów klasy $CarService$ będzie inicjował zmienną $carRepository$ właściwymi wartościami. Po naszej stronie nie musimy już nic robić. Jest to jedna z zalet opisania naszej klasy jako $@Service$. Od teraz możemy korzystać z IoC - Inversion of Controll i DI - dependency injection. Co więcej, teraz nasza klasa serwisu też będzie mogła być wstrzykiwana w taki sam sposób jak repozytorium w każdej klasie zarządzanej przez IoC Springa. \\
+        
+        Przyjżyj się adnotacji $@Autowired$. Dzięki niej Spring sam w czasie tworzenie obiektów klasy $CarService$ będzie inicjował zmienną $carRepository$ właściwymi wartościami. Po naszej stronie nie musimy już nic robić. Jest to jedna z zalet opisania naszej klasy jako $@Service$. Od teraz możemy korzystać z IoC - Inversion of Controll i DI - dependency injection. Co więcej, teraz nasza klasa serwisu też będzie mogła być wstrzykiwana w taki sam sposób jak repozytorium w każdej klasie zarządzanej przez IoC Springa. 
+        
         Po zdefiniowaniu wszystkich potrzebnych zmiennych, możemy zacząć pisać właściwą część logiki. Zacznijmy od tworzenia nowych obiektów w bazie danych. Dodajmy funkcję za to odpowiedzialną.
         \begin{minted}{java}
 public CarDAO create(CarDAO carDAO){
     return this.carRepository.save(carDAO);
 }
         \end{minted}
-        Niestety funkcja $CarRepository::save()$ nie potrafi sama określić czy dany obiekt już istnieje w bazie danych czy nie. Dzieje się tak dlatego, że wybraliśmy jako klucz główny sztucznie generowane $id$, a nie numer rejestracji. W momencie gdy wywołujemy tą funkcję, nie znamy jeszcze wartości $id$ - w obiekcie CarDAO ustawialiśmy, że ta wartość ma być zarządzana przez bazę danych. Na szczęście nie jest to problem. Dzięki tworzeniu sztucznego $id$ mamy 100\% pewność, że żadne dwa $id$ się nie zdublują. Rozwiążmy teraz problem sprawdzania, czy dane auto istniej w bazie danych.
+        
+        Niestety funkcja $CarRepository::save()$ nie potrafi sama określić czy dany obiekt już istnieje w bazie danych czy nie. Dzieje się tak dlatego, że wybraliśmy jako klucz główny sztucznie generowane $id$, a nie numer rejestracji. W momencie gdy wywołujemy tą funkcję, nie znamy jeszcze wartości $id$. W obiekcie CarDAO ustawialiśmy, że ta wartość ma być zarządzana przez bazę danych, więc zostanie stworzona dopiero po wywołaniu funkcji $CarRepository::save()$. Na szczęście nie jest to problem, skorzystamy z tego, że zawsze znamy numer rejestracji. Natomiast dzięki tworzeniu sztucznego $id$ mamy 100\% pewność, że żadne dwa $id$ się nie zdublują. Rozwiążmy teraz problem sprawdzania, czy dane auto istniej w bazie danych.
         \begin{minted}{java}
 private Boolean checkIfExists(CarDAO carDAO){
     if(carDAO.getNumberPlate() == null) return false;
@@ -204,7 +205,10 @@ private Boolean checkIfExists(CarDAO carDAO){
             this.carRepository.existsByNumberPlate(carDAO.getNumberPlate());
 }
         \end{minted}
-        Na początku sprawdzamy, czy dane auto ma wogóle rejestrację, jak jej nie ma to i tak już nie mamy szans na jego rozpoznanie. Później korzystam z funkcji, którą zdefiniowaliśmy w naszym repozytorium do sprawdzania czy istniją obiekty w bazie danych o podanej rejestracji. Mając obie funkcjie nareszcie możemy stworzyć rozwiązanie, które nie będzie niszczyło naszej bazy przez przypadek, czyli:
+        
+        Na początku sprawdzamy, czy dane auto ma wogóle rejestrację, jak jej nie ma to i tak już nie mamy szans na jego rozpoznanie. Później korzystam z funkcji, którą zdefiniowaliśmy w naszym repozytorium do sprawdzania czy istniją obiekty w bazie danych o podanej rejestracji.
+        
+        Mając obie funkcjie nareszcie możemy stworzyć rozwiązanie, które nie będzie niszczyło naszej bazy przez przypadek, czyli:
         \begin{minted}{java}
 public CarDAO createIfNotExits(CarDAO carDAO){
     if(this.checkIfExists(carDAO))
@@ -213,6 +217,7 @@ public CarDAO createIfNotExits(CarDAO carDAO){
         return this.create(carDAO);
 }
         \end{minted}
+        
         Z punktu widzenia naszej aplikacji potrzebne są nam jeszcze trzy funkcjonalności - towrzenie nowych aut, wyszukiwanie już istniejących i zarządzanie ich wyporzyczaniem. Zaimplementujmy teraz funkcję odpowiedzialną za wyszukiwanie w bazie danych już istniejących aut.
         \begin{minted}{java}
 public CarDAO getOne(Long id) throws Exception {
@@ -223,6 +228,7 @@ public CarDAO getOne(Long id) throws Exception {
     else return optionalCarDAO.get();
 }
         \end{minted}
+        
         Używając funkcji $CarRepository::find()$ otzymujemy specjalny obiekt - $Optional$. Jest to wrapper na dowolny obiekt, który dodatkowo przetrzymuje informację, czy obiekt w nim się znajdujący to przypadkiem nie null. Użyliśmy także specjalnie stworzonego wyjątku - $ProcessingException$. Pomoże nam to w przyszłości tłumaczyć wyjątki rzucane przez Spring do odpowiedzi API. Odejdźmy na chwilę od naszej klasy serwisu i napiszmy właśnie użytą klasę $ProcessingException$
         \begin{minted}{java}
 public class ProcessingException extends Exception{
@@ -231,6 +237,7 @@ public class ProcessingException extends Exception{
     }
 }
         \end{minted}
+        
         Teraz wróćmy spowrotem do pisanego serwisu i dodajmy dwie ostatnie funkcje - wyporzyczanie samochodu i jego oddawania. Pamiętajmy, że w przechowujemy inforację o całkowitym przebytym dystansie przez każdy samochód i należy go aktualizować w przy każdym oddaniu auta. Zwróćmy też uwagę na zapobieganie oddawania cudzego auta, lub wyporzyczania samochodu już wyporzyczonego.
         \begin{minted}{java}
 public CarDAO rent(CarDAO carDAO, ClientDAO clientDAO) throws Exception {
@@ -337,6 +344,7 @@ public class ClientService {
         \end{minted}
 
     \section{Warstwa Prezentacji}
+    
         Ostatnią rzeczą do wykonania zostaje część programu odpowiedzialna za komunikację z użytkownikiem. Jest to warstwa prezentacji. Zwyczajowo klasy odpowiedzialne za komunikowanie się z użytkownikiem to kontrolery. Z tego powodu będa posiadały końcówkę $Controller$.
         \subsection{Obiekty Transferowe}
             Zanim przejdziemy do implementacji kontolerów, musimy zająć się problemem nieskończonej rekurencji w obiektach DAO. Dla warstwy logiki biznesowej naprawiliśmy ten problem stosując \emph{lazy-fetching}. Oznaczało to tyle, że ORM nie próbował wyciągać z bazy danych całego obiektu a tylko te części, które były w danym momencie potrzebne. 
@@ -371,10 +379,10 @@ public class CarDTO {
                 \end{minted}
                 \begin{description}
                     \item[@Builder] jest adnotacją Lomboka, która pozwala na wykorzystanie wzorcu budowniczego (Builder Pattern) do tworzenia obiektów danej klasy
-                    \item[@AllArgsConstructor] kolejna adnotacja Lomboka, pozwalająca na stworzenie konstruktora skladającego się ze wszystkich pól danej klasy. Domyślnie adnotacj $@Data$ zawiera pusty konstruktor - taki, który nie posiada argumentów
+                    \item[@AllArgsConstructor] kolejna adnotacja Lomboka, pozwalająca na stworzenie konstruktora skladającego się ze wszystkich pól danej klasy. Domyślnie adnotacja $@Data$ zawiera pusty konstruktor - taki, który nie posiada argumentów
                 \end{description}
             \subsubsection{ClientDTO}
-                Teraz, czas na twoją pracę. W podobny sposób zaimplementuj obiekt transferowy dla obiektu klienta. Pamiętaj o tym, że  $ClientDAO$ w polu $rentedCars$ przechowuje całą listę obiektów CarDAO do których przed chwilą stworzyliśmy obiekty transferowe. Pamiętaj, że w obiekcie transferowym nie można przechowywać obiektów DAO, dlatego musisz zamienić je na DTO.
+                Teraz, czas na twoją pracę. W podobny sposób zaimplementuj obiekt transferowy dla klienta. Pamiętaj o tym, że  $ClientDAO$ w polu $rentedCars$ przechowuje całą listę obiektów $CarDAO$ do których przed chwilą stworzyliśmy obiekty transferowe. Pamiętaj, że w obiekcie transferowym nie można przechowywać obiektów DAO, dlatego musisz zamienić je na DTO.
                 
                 O ile zrobiłeś wszystko dobrze to powinieneś otrzymać kod podobny do tego:
                 \begin{minted}{java}
@@ -410,7 +418,7 @@ public class ClientDTO {
             \subsubsection{CarController}
                 Bedzie to obiekt odpowiedzialny za interakcję użytkownika z samochodem. Chcielibyśmy umożliwić klientowi dwie operacje:
                 \begin{description}
-                    \item[GET /car/{id}] pozwoli na odczytywanie informacji o samochodzie 
+                    \item[GET /car/\{id\}] pozwoli na odczytywanie informacji o samochodzie 
                     \item[POST /car/]  pozwoli na dodawanie nowych samochodów
                 \end{description}
                 To czym jest $GET$ i $POST$ oraz jakie są między nimi różnice omówiliśmy na prezentacji do tego laboratorium. Jednak jeżeli chciałbyś się dowiedzieć więcej zapraszam do linków na końcu skryptu.
@@ -425,10 +433,10 @@ public class CarController {
 }
                 \end{minted}
                 \begin{description}
-                    \item[@RestController] to tak naprawdę złożenie dwóch adnotacji. @Controller - która mówi o tym, że pisana właśnie klasa ma specjalne przeznaczenie, będzie kontrolerem. Drudą adnotacją jest @ResponseBody, wskazuje ona na to, że zwracana przez funkcje obiekty mają być serializowane do postacji JSON
+                    \item[@RestController] to tak naprawdę złożenie dwóch adnotacji. @Controller - która mówi o tym, że pisana właśnie klasa ma specjalne przeznaczenie, będzie kontrolerem. Drugą adnotacją jest @ResponseBody, wskazuje ona na to, że zwracana przez funkcję obiekty mają być serializowane do postacji JSON
                     \item[@RequestMapping] wskazuje na to jakie rządania mają być obsługiwane przez ten kontroler. Tutaj wszystko co zaczyna się od \emph{/car}
                 \end{description}
-                Teraz dodamy nasz pierwszy endpoint - \emph{GET /car/{id}}
+                Teraz dodamy nasz pierwszy endpoint - \emph{GET /car/\{id\}}
                 \begin{minted}{java}
 @GetMapping("/{id}")
 public CarDTO getOne(
@@ -443,6 +451,7 @@ public CarDTO getOne(
                     \item[@GetMapping] wskazuje, że ten endpoint będzie odbierał tylko rządania typu $GET$, kończące się na $/\{id\}$
                     \item[@PathVariable] wskazuje, że do parametru id należy wpisać wartość, która znajdzie w miejscu \emph{\{id\}}  
                 \end{description}
+                
                 Jak widzimy jest to prosty endpoint, który wywoła funkcję $CarService::getOne$ i przekonwertuje jej wynik do obiektu DTO
                 
                 Teraz dodamy endpoint odpowiedzialny za dodawanie nowgo auta
@@ -456,6 +465,7 @@ public CarDTO postOne(
     );
 }
                 \end{minted}
+                
                 Nowością tutaj jest wykorzystanie adnotacji $@RequestBody$. Pozwala ona na automatyczną deserializację obiektu zawartego w rządaniu do obiektu Javy. Reszta jest identyczna.
             \subsubsection{ClientController}
                 W przypadku kontolera klienta chcielibyśmy udostępnić następujące endpointy:
@@ -465,6 +475,7 @@ public CarDTO postOne(
                     \item[PATCH /client/rent/\{id\}] pozwoli wyporzyczyć samochód
                     \item[PATCH /client/return/\{id\}] pozwoli oddać wypożyczony samochód
                 \end{description}
+                
                 Podstawowe funkcjonalności tego endpointu są dokładnie takie same, więc pominiemy ich dokładniejszy opis.
                 \begin{minted}{java}
 @RestController
@@ -492,6 +503,7 @@ public class ClientController {
     }
 }
                 \end{minted}
+                
                 O tym czym jest rządanie typu $PATCH$ także mówiliśmy na prezentacji, więce tak jak poprzednio, zainteresowanych odsyłam do linków na końcu skryptu.
                 
                 Zakończymy teraz proces tworzenia kontrolera dodając jesgo ostatnie dwa endpointy typu $PATCH$
@@ -536,5 +548,6 @@ public ClientDTO returnOne(
         \begin{itemize}
             \item \href{https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller}{Co to MVC}
             \item \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods}{Typy rządań HTTP}
+            \item \href{https://github.com/ptylczynski/BAI-labo-sketch}{Wygenerowany projekt Initializr}
         \end{itemize}
 \end{document}
